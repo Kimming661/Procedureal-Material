@@ -74,10 +74,10 @@ for file in os.listdir(SBSAR_DIR):
     instance_path = f"{INSTANCE_FOLDER}/{instance_name}"
 
     if editor_lib.does_asset_exist(instance_path):
-        print(f"⚠️ already existing {instance_name}，Skipping.")
+        print(f"already existing {instance_name}，Skipping.")
         continue
 
-    print(f"📦 Importing：{name}.sbsar")
+    print(f"Importing：{name}.sbsar")
     import_sbsar(full_path, DEST_PATH)
 
     # Waiting for texture generation
@@ -86,7 +86,7 @@ for file in os.listdir(SBSAR_DIR):
     # Load Master Material
     master_mat = editor_lib.load_asset(MASTER_MATERIAL_PATH)
     if not master_mat:
-        print(f"❌ Loss of parent material：{MASTER_MATERIAL_PATH}")
+        print(f"Loss of parent material：{MASTER_MATERIAL_PATH}")
         continue
 
     # Creating material instances
@@ -108,4 +108,4 @@ for file in os.listdir(SBSAR_DIR):
 
     # Saved Material Instances
     editor_lib.save_asset(instance_path)
-    print(f"✅ Successfully created material instance:{instance_name}")
+    print(f"Successfully created material instance:{instance_name}")
