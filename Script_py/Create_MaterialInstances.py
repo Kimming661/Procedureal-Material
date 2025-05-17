@@ -78,23 +78,23 @@ for sbsar_name in SBSAR_NAMES:
     instance_path = f"{INSTANCE_FOLDER}/{instance_name}"
 
     if editor_lib.does_asset_exist(instance_path):
-        unreal.log_warning(f"⚠️ Material Instance {instance_name} Already exist, skip")
+        unreal.log_warning(f"Material Instance {instance_name} Already exist, skip")
         continue
 
-    unreal.log("🎯 Start processing the mapping, prefix：" + sbsar_name)
+    unreal.log("Start processing the mapping, prefix：" + sbsar_name)
     textures = wait_for_textures(sbsar_name, DEST_PATH)
-    unreal.log("🧪The path of the found texture:" + str(textures))
+    unreal.log("The path of the found texture:" + str(textures))
 
     # Check if at least one mapping is found
     if not any(textures.values()):
-        unreal.log_error(f"❌ Not found textures，prefix：{sbsar_name}")
+        unreal.log_error(f"Not found textures，prefix：{sbsar_name}")
         continue
 
     # Load the parent material
     # (make sure the parent material path is correct and does not contain illegal characters)
     master_mat = editor_lib.load_asset(MASTER_MATERIAL_PATH)
     if not master_mat:
-        unreal.log_error("❌ Master material lost：" + MASTER_MATERIAL_PATH)
+        unreal.log_error("Master material lost：" + MASTER_MATERIAL_PATH)
         continue
 
     # Creating material instances
@@ -105,7 +105,7 @@ for sbsar_name in SBSAR_NAMES:
         material_factory
     )
     if material_instance is None:
-        unreal.log_error("❌ Failed to create material instance：" + instance_name)
+        unreal.log_error("Failed to create material instance：" + instance_name)
         continue
 
     material_instance.set_editor_property("parent", master_mat)
@@ -113,7 +113,7 @@ for sbsar_name in SBSAR_NAMES:
     # Binding maps
     for param_key, tex_path in textures.items():
         if tex_path is None:
-            unreal.log_warning(f"🚫 Texture {param_key} Not found，skipping blinding.")
+            unreal.log_warning(f"Texture {param_key} Not found，skipping blinding.")
             continue
         texture = editor_lib.load_asset(tex_path)
         if texture:
@@ -122,8 +122,8 @@ for sbsar_name in SBSAR_NAMES:
             material_lib.set_material_instance_texture_parameter_value(material_instance, param_name, texture)
             unreal.log("🧷 Setting textures parameters " + param_name + " Corresponding texture: " + os.path.basename(tex_path))
         else:
-            unreal.log_warning("🚫 Failed to load texture: " + tex_path)
+            unreal.log_warning("Failed to load texture: " + tex_path)
 
     # Save Material Example
     editor_lib.save_asset(instance_path)
-    unreal.log("✅ Successfully created material instance:" + instance_name)
+    unreal.log("Successfully created material instance:" + instance_name)
