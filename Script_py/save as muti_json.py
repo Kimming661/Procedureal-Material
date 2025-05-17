@@ -30,9 +30,9 @@ all_parameters = [
 output_folder = os.path.join(os.path.dirname(__file__), "bricks")
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
-    print(f"📁 Create folder：{output_folder}")
+    print(f"Create folder：{output_folder}")
 else:
-    print(f"📁 Folder already exists：{output_folder}")
+    print(f"Folder already exists：{output_folder}")
 
 # Save each set of parameters as a separate JSON file
 for i, params in enumerate(all_parameters, start=1):
@@ -42,4 +42,4 @@ for i, params in enumerate(all_parameters, start=1):
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump({"parameters": params}, f, indent=4)
 
-    print(f"✅ Save：{filepath}")
+    print(f"Save：{filepath}")
