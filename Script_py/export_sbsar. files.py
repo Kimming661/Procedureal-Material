@@ -26,11 +26,11 @@ for preset_file in os.listdir(preset_folder):
             "--output-path", output_folder,
         ]
 
-        print(f"🚀 Exporting: {output_path} ...")
+        print(f"Exporting: {output_path} ...")
         result = subprocess.run(command, capture_output=True, text=True)
 
         if result.returncode == 0:
-            print(f"✅ Successful exporting：{output_path}")
+            print(f"Successful exporting：{output_path}")
         else:
-            print(f"❌ Failure exporting：{output_path}")
+            print(f"Failure exporting：{output_path}")
             print(result.stderr)
